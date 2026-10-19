@@ -1,11 +1,8 @@
-
-# Keep database credentials private
-/php/db.php
-
-# Do not upload student documents
-/uploads/*
-!/uploads/.gitkeep
-
-# Ignore unnecessary system files
-.DS_Store
-Thumbs.db
+.env
+.env.*
+!.env.example
+uploads/*
+!uploads/.gitkeep
+vendor/
+target/
+*.log

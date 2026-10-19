@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Admission Portal</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="intro">
+      <div class="brand-mark" aria-hidden="true">SA</div>
+      <p class="eyebrow">STUDENT SERVICES</p>
+      <h1>Begin your next chapter.</h1>
+      <p class="intro-copy">Complete the registration form to submit your student admission details.</p>
+      <div class="steps"><span class="step-number">01</span><span><strong>Registration</strong><small>Enter your details accurately</small></span></div>
+      <div class="intro-footer">STUDENT ADMISSION PORTAL <span>•</span> 2026</div>
+    </section>
+
+    <section class="form-panel" aria-labelledby="form-title">
+      <div class="form-heading"><div><p class="eyebrow">APPLICATION FORM</p><h2 id="form-title">Student registration</h2></div><span class="required-note"><b>*</b> Required fields</span></div>
+      <form id="registrationForm" action="register" method="post" enctype="multipart/form-data" novalidate>
+        <div class="field-grid">
+          <div class="field full"><label for="fullName">Full name <b>*</b></label><input id="fullName" name="full_name" type="text" placeholder="e.g. Arun Kumar" autocomplete="name" required><small class="error" id="nameError"></small></div>
+          <div class="field"><label for="rollNumber">Roll number <b>*</b></label><input id="rollNumber" name="roll_number" type="text" placeholder="e.g. 24CSE101" required><small class="error" id="rollError"></small></div>
+          <div class="field"><label for="email">Email address <b>*</b></label><input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required><small class="error" id="emailError"></small></div>
+          <div class="field full"><label for="course">Course <b>*</b></label><select id="course" name="course" required><option value="">Select your course</option><option value="B.E. Computer Science and Engineering">B.E. Computer Science and Engineering</option><option value="B.E. Electronics and Communication Engineering">B.E. Electronics and Communication Engineering</option><option value="B.Tech Information Technology">B.Tech Information Technology</option><option value="B.Tech Artificial Intelligence and Data Science">B.Tech Artificial Intelligence and Data Science</option><option value="B.E. Mechanical Engineering">B.E. Mechanical Engineering</option></select><small class="error" id="courseError"></small></div>
+          <div class="field full"><label for="password">Create password <b>*</b></label><input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" required><div class="password-hint">Use 8+ characters with uppercase, lowercase, a number and a symbol.</div><div class="strength-track"><span id="strengthBar"></span></div><small id="strengthText" class="strength-text">Password strength: not entered</small><small class="error" id="passwordError"></small></div>
+          <div class="field full"><label for="document">Upload supporting document <b>*</b></label><label class="upload-box" for="document"><span class="upload-icon">↑</span><span><strong id="fileLabel">Choose a file to upload</strong><small>PDF, JPG or PNG · Maximum 2 MB</small></span><span class="browse">Browse</span></label><input class="file-input" id="document" name="document" type="file" accept=".pdf,.jpg,.jpeg,.png" required><small class="error" id="fileError"></small></div>
+        </div>
+        <label class="terms"><input id="agree" type="checkbox" required><span>I confirm that the information provided is accurate.</span></label>
+        <small class="error" id="agreeError"></small>
+        <button class="submit-btn" type="submit">Submit registration <span aria-hidden="true">→</span></button>
+        <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+        <p class="privacy-note">Your information is used only for admission processing.</p>
+      </form>
+    </section>
+  </main>
+  <script src="assets/script.js"></script>
+</body>
+</html>

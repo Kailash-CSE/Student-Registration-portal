@@ -1,31 +1,30 @@
 # Student Admission Portal
 
-Responsive student registration form built with HTML, CSS and JavaScript, with two alternative server-side implementations: PHP/PDO and Java Jakarta Servlet. The shared MySQL schema is in `sql/schema.sql`.
+Responsive student admission portal with two separate implementations that share the same registration design:
+- **PHP + MySQL** for Q1/Q2: registration validation, CRUD pages, upload validation, and file metadata.
+- **Jakarta Servlet + JDBC + JSP** for Q3: registration, login/session filter, student listing, and protected document streaming.
 
-## Files
-- `index.html` — form controls: name, roll number, email, course, password, document upload and confirmation.
-- `assets/style.css` — responsive layout, focus states, field errors, upload area and password-strength bar.
-- `assets/script.js` — client-side validation and demo submission message.
-- `php/` — PHP/PDO backend; validates input again, checks upload MIME/size, hashes passwords, and uses prepared statements.
-- `servlet-version/` — alternative Jakarta Servlet backend and `WEB-INF/web.xml` deployment descriptor.
-- `sql/schema.sql` — MySQL database and table.
-- `screenshots/registration-form.png` — browser screenshot of the form.
+## Project structure
+- `index.html`, `assets/style.css`, `assets/script.js` — shared Q1 registration UI and client-side validation.
+- `php/` — PHP/PDO CRUD and file handling.
+- `servlet-version/` — Maven WAR application for Tomcat 10.1.
+- `servlet-version/src/main/webapp/assets/` — same CSS and JavaScript used by the Servlet registration page.
+- `sql/schema.sql` — database and both `students` and `student_files` tables.
+- `screenshots/` — supplied UI preview; capture fresh screenshots from your own running app for submission.
 
-## Run the frontend demo
-Open `index.html` in a browser. The form demonstrates client-side validation; it displays a demo message rather than saving records.
+## Database setup
+1. Run `sql/schema.sql` in MySQL. It creates/uses `student_registration`.
+2. Configure PHP environment variables for Apache: `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
+3. Configure the Servlet Tomcat process with `DB_URL=jdbc:mysql://localhost:3306/student_registration`, `DB_USER`, `DB_PASSWORD`, and optionally `STUDENT_UPLOAD_DIR`.
+4. Do not commit passwords or real student documents to GitHub. Use a fresh database password because an earlier local config contained a hard-coded password.
 
-## Run PHP + MySQL
-1. Install PHP with `pdo_mysql`, `fileinfo`, and `mbstring` enabled, plus MySQL.
-2. Run `sql/schema.sql` in MySQL.
-3. Update credentials in `php/db.php`.
-4. Serve the project directory with PHP's development server from the project root: `php -S localhost:8000`.
-5. Open `http://localhost:8000/index.html`. The PHP form action saves registrations into MySQL.
+## Run PHP version
+Serve the project through XAMPP/Apache and open `http://localhost/student-registration-portal (1)/student-registration/` (adjust the URL to the folder name in your `htdocs`). Registration submits to `php/register.php`; CRUD pages are `php/view.php`, `php/edit.php`, and `php/delete.php`.
 
-## Run the Servlet version
-Deploy the web app to a Jakarta EE 10-compatible servlet container (such as Tomcat 10.1), add the Jakarta Servlet API as a provided dependency and the MySQL Connector/J driver, and package `index.html` plus `assets/` into the web root. Change the form action to `/YOUR_CONTEXT_PATH/register` for this version. Set `DB_URL`, `DB_USER`, `DB_PASSWORD`, and optionally `STUDENT_UPLOAD_DIR` in the server environment. Run the SQL schema first.
+## Run Servlet version
+Build from `servlet-version` using `mvn clean package` and deploy `target/StudentRegistration.war` to Tomcat 10.1 `webapps`. Start Tomcat with the database environment variables set in the same process. Open `http://localhost:8080/StudentRegistration/`. Login is at `/StudentRegistration/login.html`, student list at `/StudentRegistration/students`.
 
-## Important security note
-The PHP implementation uses `password_hash()`. The Java servlet uses salted PBKDF2-HMAC-SHA256 for password hashing. For production, also add CSRF protection, rate limiting, malware scanning for uploaded documents, and keep uploaded files outside the public web root. Client-side validation improves usability but never replaces server-side validation.
+The Servlet version uses its own upload directory (default: `${java.io.tmpdir}/student-uploads`), so PHP uploads and Servlet uploads are stored separately unless `STUDENT_UPLOAD_DIR` is deliberately configured.
 
-## Screenshot
-`screenshots/registration-form-preview.png` is a visual preview of the intended browser layout. For an actual browser screenshot for submission, run the page locally and use your browser's screenshot tool (Windows: `Win + Shift + S`) after opening `index.html` or the PHP-served URL.
+## Security notes
+Client-side validation is for usability; server-side validation remains mandatory. The Servlet student list is currently visible to any authenticated account, so use test data only and add administrator/student authorization before production use. For production, add CSRF protection, login rate limiting, and malware scanning for uploaded documents.

@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Portal Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0002;
+        }
+        h1 { text-align: center; color: #173b70; }
+        label { display: block; margin-top: 16px; font-weight: bold; }
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+        }
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 12px;
+            background: #173b70;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        a { color: #173b70; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Student Portal Login</h1>
+
+    <form action="login" method="post">
+        <label for="roll_number">Roll Number</label>
+        <input id="roll_number" name="roll_number"
+               maxlength="20" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password"
+               type="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p>New student? <a href="index.html">Register here</a></p>
+</div>
+</body>
+</html>
